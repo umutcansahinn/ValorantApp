@@ -10,23 +10,23 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetAgentsUseCase @Inject constructor(
+class GetAgentDetailUseCase @Inject constructor(
     private val valorantRepository: ValorantRepository,
     private val mapper: AgentMapper
 ) {
 
-    operator fun invoke(): Flow<Resource<List<Agent>>> {
+    operator fun invoke(agentUuid: String): Flow<Resource<Agent>> {
         return flow {
             try {
                 emit(Resource.Loading)
-                valorantRepository.getAgents().data?.map {data ->
-                    mapper.map(agentData = data)
-                }?.let {
-                    emit(Resource.Success(data = it))
+                valorantRepository.getAgentByUuid(agendUuid = agentUuid).data?.let { data ->
+                    mapper.map(agentData = data).also {
+                        emit(Resource.Success(data = it))
+                    }
                 }
-            }catch (e: HttpException) {
+            } catch (e: HttpException) {
                 emit(Resource.Error(e.localizedMessage.orEmpty()))
-            }catch (e: IOException) {
+            } catch (e: IOException) {
                 emit(Resource.Error(e.localizedMessage.orEmpty()))
             }
         }
