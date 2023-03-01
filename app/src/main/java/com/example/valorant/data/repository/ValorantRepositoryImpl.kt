@@ -13,7 +13,7 @@ class ValorantRepositoryImpl(
         return valorantApi.getAllAgent()
     }
 
-    override suspend fun getAgentByUuid(agendUuid: String): AgentDetailResponse {
-        return valorantApi.getAgentByUuid(agentUuid = agendUuid)
+    override suspend fun getAgentByUuid(agentUuid: String): AgentDetailResponse {
+        return valorantApi.getAgentByUuid(agentUuid = agentUuid)
     }
 }

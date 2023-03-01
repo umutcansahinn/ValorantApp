@@ -19,7 +19,7 @@ class GetAgentDetailUseCase @Inject constructor(
         return flow {
             try {
                 emit(Resource.Loading)
-                valorantRepository.getAgentByUuid(agendUuid = agentUuid).data?.let { data ->
+                valorantRepository.getAgentByUuid(agentUuid = agentUuid).data?.let { data ->
                     mapper.map(agentData = data).also {
                         emit(Resource.Success(data = it))
                     }

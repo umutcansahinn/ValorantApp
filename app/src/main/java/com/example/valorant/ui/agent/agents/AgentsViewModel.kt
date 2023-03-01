@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.valorant.common.Resource
+import com.example.valorant.domain.usecase.UseCase
 import com.example.valorant.domain.usecase.agents.GetAgentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AgentsViewModel @Inject constructor(
-    private val getAgentsUseCase: GetAgentsUseCase
+    private val useCase: UseCase
 ) : ViewModel() {
 
     private val _state = MutableLiveData<AgentsState>()
@@ -21,19 +22,19 @@ class AgentsViewModel @Inject constructor(
 
 
     fun getAgents() {
-        viewModelScope.launch(Dispatchers.IO) {
-            getAgentsUseCase().collect { result ->
+        viewModelScope.launch() {
+            useCase.getAgentsUseCase().collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         result.data.also {
-                            _state.value = AgentsState(agents = it)
+                            _state.value = AgentsState.Success(agents = it)
                         }
                     }
                     is Resource.Loading -> {
-                        _state.value = AgentsState(isLoading = true)
+                        _state.value = AgentsState.Loading
                     }
                     is Resource.Error -> {
-                        _state.value = AgentsState(error = result.errorMessage)
+                        _state.value = AgentsState.Error(error = result.errorMessage)
                     }
                 }
             }
