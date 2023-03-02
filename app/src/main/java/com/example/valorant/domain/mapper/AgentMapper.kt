@@ -17,7 +17,8 @@ class AgentMapper {
             displayName = displayName.orEmpty(),
             fullPortrait = fullPortrait.orEmpty(),
             role = role,
-            uuid = uuid.orEmpty()
+            uuid = uuid.orEmpty(),
+            background = background.orEmpty()
         )
     }
 }

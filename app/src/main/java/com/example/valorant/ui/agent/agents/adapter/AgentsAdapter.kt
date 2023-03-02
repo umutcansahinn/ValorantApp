@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.valorant.common.loadImage
+import com.example.valorant.common.loadImageCircle
 import com.example.valorant.databinding.ItemAgentsAdapterBinding
 import com.example.valorant.domain.model.Agent
 
@@ -37,7 +37,7 @@ class AgentsAdapter(private val itemClickListener: ( (String)-> Unit)?): Recycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            itemImageView.loadImage(agentsList[position].displayIcon)
+            itemImageView.loadImageCircle(agentsList[position].displayIcon)
             itemNameTextView.text = agentsList[position].displayName
             itemImageView.setOnClickListener {
                 itemClickListener?.invoke(agentsList[position].uuid)

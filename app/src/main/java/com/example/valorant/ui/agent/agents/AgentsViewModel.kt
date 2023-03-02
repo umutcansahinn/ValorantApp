@@ -24,11 +24,11 @@ class AgentsViewModel @Inject constructor(
 
     fun getAgents() {
         viewModelScope.launch() {
-            delay(2_000)
             useCase.getAgentsUseCase().collect { result ->
                 when (result) {
                     is Resource.Success -> {
                         result.data.also {
+                            delay(2000)
                             _state.value = AgentsState.Success(agents = it)
                         }
                     }
