@@ -7,7 +7,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.valorant.R
+import com.example.valorant.common.gone
 import com.example.valorant.common.viewBinding
+import com.example.valorant.common.visible
 import com.example.valorant.databinding.FragmentAgentsBinding
 import com.example.valorant.ui.agent.agents.adapter.AgentsAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,21 +31,27 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
         viewModel.state.observe(viewLifecycleOwner) {
             when(it) {
                 is AgentsState.Loading -> {
-                    binding.errorTextView.visibility = View.GONE
-                    binding.recyclerView.visibility = View.GONE
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding.apply {
+                        errorTextView.gone()
+                        recyclerView.gone()
+                        progressBar.visible()
+                    }
                 }
                 is AgentsState.Error -> {
-                    binding.errorTextView.text = it.error
-                    binding.errorTextView.visibility = View.VISIBLE
-                    binding.recyclerView.visibility = View.GONE
-                    binding.progressBar.visibility = View.GONE
+                    binding.apply {
+                        errorTextView.text = it.error
+                        errorTextView.visible()
+                        recyclerView.gone()
+                        progressBar.gone()
+                    }
                 }
                 is AgentsState.Success -> {
                     agentsAdapter.agentsList = it.agents
-                    binding.errorTextView.visibility = View.GONE
-                    binding.recyclerView.visibility = View.VISIBLE
-                    binding.progressBar.visibility = View.GONE
+                    binding.apply {
+                        errorTextView.gone()
+                        recyclerView.visible()
+                        progressBar.gone()
+                    }
                 }
             }
         }

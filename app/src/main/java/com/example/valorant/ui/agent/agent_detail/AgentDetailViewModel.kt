@@ -21,7 +21,7 @@ class AgentDetailViewModel @Inject constructor(
     val state: LiveData<AgentDetailState> = _state
 
     fun getAgentDetail(agentUuid: String) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             useCase.getAgentDetailUseCase(agentUuid = agentUuid).collect { result ->
                 when(result) {
                     is Resource.Success -> {
