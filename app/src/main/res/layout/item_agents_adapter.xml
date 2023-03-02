@@ -5,13 +5,16 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.utils.widget.ImageFilterView
+    <ImageView
         android:id="@+id/itemImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
         android:src="@color/design_default_color_secondary"
+        android:layout_margin="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    </androidx.constraintlayout.utils.widget.ImageFilterView>
+    </ImageView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
