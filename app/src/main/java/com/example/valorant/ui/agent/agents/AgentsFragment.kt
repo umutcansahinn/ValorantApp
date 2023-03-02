@@ -1,26 +1,23 @@
 package com.example.valorant.ui.agent.agents
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.valorant.R
 import com.example.valorant.common.viewBinding
 import com.example.valorant.databinding.FragmentAgentsBinding
 import com.example.valorant.ui.agent.agents.adapter.AgentsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class AgentsFragment : Fragment(R.layout.fragment_agents) {
 
     private val binding by viewBinding(FragmentAgentsBinding::bind)
     private val viewModel by viewModels<AgentsViewModel>()
-    private val agentsAdapter = AgentsAdapter()
+    private val agentsAdapter = AgentsAdapter(::itemSetClick)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAgents()
@@ -54,5 +51,10 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
     private fun initView() {
         binding.recyclerView.adapter = agentsAdapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun itemSetClick(agentUuid: String) {
+        val action =AgentsFragmentDirections.actionAgentsFragmentToAgentDetailFragment(agentUuid = agentUuid)
+        findNavController().navigate(action)
     }
 }

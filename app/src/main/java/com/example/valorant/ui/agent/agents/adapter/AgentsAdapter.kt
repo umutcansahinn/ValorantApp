@@ -9,7 +9,7 @@ import com.example.valorant.common.loadImage
 import com.example.valorant.databinding.ItemAgentsAdapterBinding
 import com.example.valorant.domain.model.Agent
 
-class AgentsAdapter: RecyclerView.Adapter<AgentsAdapter.ViewHolder>() {
+class AgentsAdapter(private val itemClickListener: ( (String)-> Unit)?): RecyclerView.Adapter<AgentsAdapter.ViewHolder>() {
     class ViewHolder(val binding: ItemAgentsAdapterBinding): RecyclerView.ViewHolder(binding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<Agent>() {
@@ -38,6 +38,9 @@ class AgentsAdapter: RecyclerView.Adapter<AgentsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             itemImageView.loadImage(agentsList[position].displayIcon)
+            itemImageView.setOnClickListener {
+                itemClickListener?.invoke(agentsList[position].uuid)
+            }
         }
     }
 }
