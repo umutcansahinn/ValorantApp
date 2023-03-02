@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.valorant.R
 import com.example.valorant.common.gone
 import com.example.valorant.common.viewBinding
@@ -33,9 +32,9 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
             when(it) {
                 is AgentsState.Loading -> {
                     binding.apply {
+                        shimmerViewContainer.visible()
                         errorTextView.gone()
                         recyclerView.gone()
-                        progressBar.visible()
                     }
                 }
                 is AgentsState.Error -> {
@@ -43,7 +42,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
                         errorTextView.text = it.error
                         errorTextView.visible()
                         recyclerView.gone()
-                        progressBar.gone()
+                        shimmerViewContainer.gone()
                     }
                 }
                 is AgentsState.Success -> {
@@ -51,7 +50,7 @@ class AgentsFragment : Fragment(R.layout.fragment_agents) {
                     binding.apply {
                         errorTextView.gone()
                         recyclerView.visible()
-                        progressBar.gone()
+                        shimmerViewContainer.gone()
                     }
                 }
             }

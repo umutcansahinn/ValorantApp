@@ -9,6 +9,7 @@ import com.example.valorant.domain.usecase.UseCase
 import com.example.valorant.domain.usecase.agents.GetAgentsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,6 +24,7 @@ class AgentsViewModel @Inject constructor(
 
     fun getAgents() {
         viewModelScope.launch() {
+            delay(2_000)
             useCase.getAgentsUseCase().collect { result ->
                 when (result) {
                     is Resource.Success -> {

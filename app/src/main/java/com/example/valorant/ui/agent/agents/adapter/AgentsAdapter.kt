@@ -38,6 +38,7 @@ class AgentsAdapter(private val itemClickListener: ( (String)-> Unit)?): Recycle
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
             itemImageView.loadImage(agentsList[position].displayIcon)
+            itemNameTextView.text = agentsList[position].displayName
             itemImageView.setOnClickListener {
                 itemClickListener?.invoke(agentsList[position].uuid)
             }
